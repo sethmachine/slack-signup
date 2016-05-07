@@ -28,6 +28,11 @@ def read_list(input_file):
             l.append(line.strip('\n'))
     return l
 
+def write_list(output_file, items):
+    content = '\n'.join(items)
+    write_file(output_file, content)
+    return output_file
+
 def write_json(output_file, obj, indent=2):
     pretty = json.dumps(obj, indent=indent)
     write_file(output_file, pretty)

@@ -9,11 +9,12 @@ import requests
 
 TYPEFORM_URL = 'https://api.typeform.com/v1/form/'
 
+SCUMS_CREDENTIALS = 'secret/scums-typeform.json'
 
-def load_credentials(json_file):
+def load_credentials(json_file=SCUMS_CREDENTIALS):
     with open(json_file, 'r') as f:
         j = json.load(f)
-    return j['Starcraft UMS UID'], j['Typeform Key']
+    return j['uid'], j['key']
 
 def get_results(uid, key):
     """Retrieves the Typeform results for a given survey's UID.
@@ -36,6 +37,10 @@ def get_signups(uid, key):
         signups.append({'username':username, 'email':email})
     return signups
 
-if __name__ == '__main__':
-    uid, key = load_credentials('secret/credentials.json')
+def get_scums_signups(credentials=SCUMS_CREDENTIALS):
+    uid, key = load_credentials(credentials)
     s = get_signups(uid, key)
+    return s
+
+if __name__ == '__main__':
+    s = get_scums_signups()
